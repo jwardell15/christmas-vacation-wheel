@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#14080c" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="description" content="Kelly and Joe's Christmas vacation wish wheel — seven secret dreams each, two adventures revealed." />
+  <title>Merry Christmas — Kelly &amp; Joe's Vacation Wishes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎄%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --bg-deep: #14080c;
+      --bg-mid: #1c0f14;
+      --burgundy: #6e1220;
+      --red: #c41e3a;
+      --red-deep: #8b1530;
+      --holly: #14633a;
+      --holly-deep: #0c3d24;
+      --gold: #e8c872;
+      --gold-bright: #ffe9a0;
+      --gold-deep: #b8872a;
+      --cream: #fff6e8;
+      --cream-dim: #f3e2c4;
+      --ink: #1a0e10;
+      --muted: rgba(255, 246, 232, 0.72);
+      --card: rgba(36, 14, 20, 0.78);
+      --stroke: rgba(232, 200, 114, 0.38);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+      --font-display: "Mountains of Christmas", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+      --font-body: Nunito, "Segoe UI", system-ui, -apple-system, sans-serif;
+      --radius: 22px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100%; }
+    html { background: var(--bg-deep); }
+    body {
+      font-family: var(--font-body);
+      color: var(--cream);
+      background:
+        radial-gradient(1200px 700px at 50% -10%, rgba(196, 30, 58, 0.28), transparent 55%),
+        radial-gradient(900px 600px at 100% 100%, rgba(20, 99, 58, 0.28), transparent 50%),
+        radial-gradient(700px 500px at 0% 80%, rgba(184, 135, 42, 0.12), transparent 45%),
+        var(--bg-deep);
+      line-height: 1.5;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img, svg { display: block; max-width: 100%; }
+    button, input, textarea { font: inherit; color: inherit; }
+    button {
+      cursor: pointer;
+      border: 0;
+      background: none;
+      color: inherit;
+    }
+    button:disabled { cursor: not-allowed; opacity: 0.55; }
+    :focus-visible {
+      outline: 3px solid var(--gold-bright);
+      outline-offset: 3px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Snow, lights, ornaments sit above bg, below UI */
+    #snow, #lights, #ornaments {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+    }
+    #lights { height: 70px; bottom: auto; z-index: 4; }
+    #ornaments { z-index: 2; }
+
+    .flake {
+      position: absolute;
+      top: -12px;
+      color: rgba(255, 255, 255, 0.85);
+      animation: fall linear infinite;
+      text-shadow: 0 0 6px rgba(255,255,255,0.4);
+      user-select: none;
+    }
+    @keyframes fall {
+      0% { transform: translate3d(0, -10vh, 0) rotate(0deg); opacity: 0; }
+      8% { opacity: 1; }
+      100% { transform: translate3d(var(--drift), 110vh, 0) rotate(360deg); opacity: 0.7; }
+    }
+
+    .light-cord {
+      position: absolute;
+      top: 18px;
+      left: -2%;
+      width: 104%;
+      height: 18px;
+      border-bottom: 2px solid rgba(232, 200, 114, 0.35);
+      border-radius: 50%;
+    }
+    .bulb {
+      position: absolute;
+      top: 22px;
+      width: 12px;
+      height: 16px;
+      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+      animation: twinkle 1.8s ease-in-out infinite;
+      box-shadow: 0 0 10px currentColor, 0 0 18px currentColor;
+    }
+    .bulb::before {
+      content: "";
+      position: absolute;
+      top: -5px; left: 2px;
+      width: 8px; height: 5px;
+      background: var(--gold-deep);
+      border-radius: 1px;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.45; filter: brightness(0.8); }
+      50% { opacity: 1; filter: brightness(1.4); }
+    }
+
+    .hanging {
+      position: absolute;
+      top: 0;
+      width: 28px;
+      animation: sway 4.5s ease-in-out infinite;
+      transform-origin: top center;
+    }
+    .hanging .string {
+      width: 1px;
+      height: 54px;
+      margin: 0 auto;
+      background: rgba(232, 200, 114, 0.55);
+    }
+    .bauble {
+      width: 28px; height: 28px;
+      margin: 0 auto;
+      border-radius: 50%;
+      box-shadow: inset -6px -6px 10px rgba(0,0,0,0.25), 0 6px 12px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    .bauble::after {
+      content: "";
+      position: absolute;
+      top: 5px; left: 7px;
+      width: 7px; height: 5px;
+      background: rgba(255,255,255,0.45);
+      border-radius: 50%;
+      transform: rotate(-20deg);
+    }
+    @keyframes sway {
+      0%, 100% { transform: rotate(-6deg); }
+      50% { transform: rotate(6deg); }
+    }
+
+    .app {
+      position: relative;
+      z-index: 5;
+      min-height: 100dvh;
+      padding: calc(28px + var(--safe-top)) 18px calc(28px + var(--safe-bottom));
+    }
+
+    .screen { display: none; max-width: 430px; margin: 0 auto; }
+    .screen.active { display: block; animation: rise 0.55s ease; }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    /* Splash */
+    #screen-splash.active {
+      min-height: calc(100dvh - 56px - var(--safe-top) - var(--safe-bottom));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 36px;
+    }
+    .splash-wreath {
+      width: min(88vw, 340px);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    .splash-wreath::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 50%, transparent 58%, rgba(20, 99, 58, 0.55) 59%, rgba(12, 61, 36, 0.9) 72%, transparent 73%),
+        repeating-conic-gradient(from 0deg, rgba(232,200,114,0.0) 0 8deg, rgba(232,200,114,0.65) 8deg 10deg);
+      filter: drop-shadow(0 0 24px rgba(20, 99, 58, 0.45));
+      animation: spin-slow 48s linear infinite;
+    }
+    .splash-wreath::after {
+      content: "✦";
+      position: absolute;
+      top: 6%;
+      color: var(--gold-bright);
+      font-size: 28px;
+      text-shadow: 0 0 12px var(--gold);
+    }
+    @keyframes spin-slow { to { transform: rotate(360deg); } }
+    .merry {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(3.4rem, 16vw, 5.2rem);
+      line-height: 0.9;
+      color: var(--cream);
+      text-shadow:
+        0 0 18px rgba(196, 30, 58, 0.65),
+        0 3px 0 #6e1220,
+        0 8px 24px rgba(0,0,0,0.45);
+      letter-spacing: 0.02em;
+    }
+    .couple-line {
+      margin-top: 10px;
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 7vw, 2.2rem);
+      color: var(--gold-bright);
+      text-shadow: 0 0 16px rgba(232, 200, 114, 0.55);
+    }
+    .tagline {
+      margin: 14px 0 28px;
+      color: var(--muted);
+      font-size: 1.02rem;
+      max-width: 22rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      min-height: 52px;
+      padding: 0.75rem 1.4rem;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--gold-bright), var(--gold) 45%, var(--gold-deep));
+      color: var(--ink);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      box-shadow:
+        0 0 0 3px rgba(232, 200, 114, 0.18),
+        0 10px 24px rgba(184, 135, 42, 0.35),
+        inset 0 1px 0 rgba(255,255,255,0.6);
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+    .btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
+    .btn:active { transform: translateY(1px); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--gold-bright);
+      box-shadow: none;
+      border: 1.5px solid var(--stroke);
+    }
+    .btn-danger {
+      background: linear-gradient(180deg, #e45a6a, var(--red) 55%, var(--red-deep));
+      color: var(--cream);
+      box-shadow: 0 8px 20px rgba(196, 30, 58, 0.35);
+    }
+    .btn-ghost {
+      background: rgba(255,246,232,0.06);
+      color: var(--cream);
+      box-shadow: none;
+      border: 1px solid rgba(255,246,232,0.14);
+    }
+    .btn-full { width: 100%; }
+    .btn-row { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+
+    /* Top bar */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .brand {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      color: var(--gold-bright);
+      line-height: 1.1;
+    }
+    .icon-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--stroke);
+      background: rgba(20, 8, 12, 0.55);
+      display: grid;
+      place-items: center;
+      font-size: 1.15rem;
+    }
+    .icon-btn[aria-pressed="true"] {
+      background: rgba(232, 200, 114, 0.18);
+      box-shadow: 0 0 12px rgba(232, 200, 114, 0.3);
+    }
+
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 700; }
+    .hub-title {
+      font-size: 2.4rem;
+      line-height: 0.95;
+      text-align: center;
+      margin: 4px 0 6px;
+      text-shadow: 0 2px 0 #6e1220;
+    }
+    .hub-sub { text-align: center; color: var(--muted); margin-bottom: 18px; }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .person-grid { display: grid; gap: 14px; }
+    .person-card { position: relative; overflow: hidden; }
+    .person-card.kelly { border-color: rgba(196, 30, 58, 0.45); }
+    .person-card.joe { border-color: rgba(20, 99, 58, 0.5); }
+    .person-card h3 {
+      font-size: 2rem;
+      color: var(--gold-bright);
+    }
+    .status {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 4px 0 12px;
+    }
+    .gift-box {
+      margin: 8px auto 12px;
+      width: 88px;
+      height: 86px;
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+    .gift-body {
+      width: 72px; height: 56px;
+      background: linear-gradient(180deg, #d42444, #8b1530);
+      border-radius: 6px;
+      box-shadow: inset 0 0 0 2px rgba(232,200,114,0.35), 0 8px 16px rgba(0,0,0,0.35);
+      position: absolute;
+      bottom: 0;
+    }
+    .person-card.joe .gift-body {
+      background: linear-gradient(180deg, #1d8a4c, #0c3d24);
+    }
+    .gift-lid {
+      position: absolute;
+      top: 14px;
+      width: 82px; height: 18px;
+      background: linear-gradient(180deg, #ef5a6e, #a11b33);
+      border-radius: 4px;
+      box-shadow: inset 0 0 0 2px rgba(232,200,114,0.35);
+    }
+    .person-card.joe .gift-lid {
+      background: linear-gradient(180deg, #2aa86a, #14633a);
+    }
+    .ribbon-v, .ribbon-h {
+      position: absolute;
+      background: linear-gradient(180deg, var(--gold-bright), var(--gold-deep));
+    }
+    .ribbon-v { width: 10px; height: 56px; bottom: 0; left: 50%; transform: translateX(-50%); }
+    .ribbon-h { height: 10px; width: 72px; bottom: 22px; left: 50%; transform: translateX(-50%); }
+    .bow {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 22px;
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
+    }
+    .sealed-label {
+      text-align: center;
+      font-weight: 700;
+      color: var(--gold-bright);
+      margin-bottom: 8px;
+    }
+
+    .help {
+      margin-top: 16px;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+    .help strong { color: var(--gold-bright); font-weight: 700; }
+    details.help summary {
+      cursor: pointer;
+      color: var(--gold);
+      font-weight: 700;
+      list-style: none;
+    }
+    details.help summary::-webkit-details-marker { display: none; }
+    details.help summary::before { content: "▸ "; }
+    details.help[open] summary::before { content: "▾ "; }
+    details.help p { margin-top: 8px; }
+
+    .notice {
+      margin: 12px 0;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(20, 99, 58, 0.28);
+      border: 1px solid rgba(232, 200, 114, 0.3);
+      color: var(--cream);
+    }
+    .notice.toast-in { animation: rise 0.4s ease; }
+
+    .waiting {
+      text-align: center;
+      color: var(--muted);
+      margin: 16px 0 4px;
+      font-style: italic;
+    }
+    .ready-banner {
+      text-align: center;
+      margin: 18px 0 8px;
+    }
+    .ready-banner h2 {
+      font-size: 2.1rem;
+      color: var(--gold-bright);
+      margin-bottom: 8px;
+    }
+
+    /* Entry */
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gold);
+      font-weight: 700;
+      min-height: 44px;
+      margin-bottom: 6px;
+    }
+    .progress {
+      font-weight: 700;
+      color: var(--gold-bright);
+      margin-bottom: 12px;
+    }
+    .wish {
+      margin-bottom: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255,246,232,0.04);
+      border: 1px solid rgba(255,246,232,0.1);
+    }
+    .wish legend, .wish-num {
+      font-weight: 800;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    label.field {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin: 6px 0 4px;
+      color: var(--cream-dim);
+    }
+    input[type="text"], input[type="password"], textarea, input[type="tel"] {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(232, 200, 114, 0.28);
+      background: #fff6e8;
+      color: var(--ink);
+      padding: 11px 12px;
+      min-height: 46px;
+    }
+    textarea { min-height: 64px; resize: vertical; }
+    input:focus, textarea:focus {
+      outline: 3px solid var(--gold);
+      outline-offset: 1px;
+      border-color: var(--gold-deep);
+    }
+    .pin-row { display: flex; gap: 8px; align-items: center; }
+    .pin-row input { max-width: 140px; letter-spacing: 0.4em; text-align: center; font-weight: 800; }
+    .entry-footer {
+      position: sticky;
+      bottom: 0;
+      z-index: 6;
+      margin: 10px -18px 0;
+      padding: 12px 18px calc(12px + var(--safe-bottom));
+      background: rgba(20, 8, 12, 0.94);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(232, 200, 114, 0.22);
+    }
+    .entry-footer .error { min-height: 0; margin: 0; }
+    .entry-footer .error:not(:empty) { margin-top: 8px; }
+
+    /* Draw / wheel */
+    .wheel-stage {
+      position: relative;
+      width: min(88vw, 340px);
+      margin: 8px auto 18px;
+      aspect-ratio: 1;
+    }
+    .wheel-pointer {
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      width: 0; height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 22px solid var(--gold-bright);
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    }
+    .wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 8px solid var(--gold);
+      box-shadow:
+        0 0 0 4px rgba(20,8,12,0.8),
+        0 0 30px rgba(232,200,114,0.35),
+        inset 0 0 20px rgba(0,0,0,0.35);
+      position: relative;
+      overflow: hidden;
+      transition: transform 4.2s cubic-bezier(0.12, 0.72, 0.08, 1);
+    }
+    .wheel-center {
+      position: absolute;
+      inset: 42%;
+      background: radial-gradient(circle at 35% 30%, var(--gold-bright), var(--gold-deep));
+      border-radius: 50%;
+      z-index: 2;
+      box-shadow: 0 0 0 4px #5a2a14, 0 4px 10px rgba(0,0,0,0.4);
+    }
+    .slice-label {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 50%;
+      transform-origin: 0 0;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: rgba(255, 246, 232, 0.9);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.55);
+      pointer-events: none;
+      padding-left: 34%;
+    }
+
+    .winners { display: grid; gap: 12px; margin: 12px 0; }
+    .winner-card {
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(232,200,114,0.14), rgba(20,8,12,0.4));
+      animation: unwrap 0.7s ease;
+    }
+    .winner-card .who {
+      font-weight: 800;
+      color: var(--gold-bright);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.78rem;
+    }
+    .winner-card h3 {
+      font-size: 2rem;
+      line-height: 1.05;
+      margin: 4px 0;
+    }
+    @keyframes unwrap {
+      from { opacity: 0; transform: scale(0.9) rotate(-2deg); filter: blur(4px); }
+      to { opacity: 1; transform: none; filter: none; }
+    }
+
+    .all-list { display: grid; gap: 10px; margin-top: 10px; }
+    .all-item {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,246,232,0.05);
+      border: 1px solid rgba(255,246,232,0.1);
+    }
+    .all-item.won {
+      border-color: var(--gold);
+      background: rgba(232, 200, 114, 0.14);
+    }
+    .all-item .who { color: var(--gold); font-weight: 700; font-size: 0.85rem; }
+    .badge {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 1px 8px;
+      border-radius: 999px;
+      background: var(--gold);
+      color: var(--ink);
+      font-size: 0.72rem;
+      font-weight: 800;
+      vertical-align: middle;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      background: rgba(8, 2, 4, 0.72);
+      padding: 24px 16px calc(24px + var(--safe-bottom));
+      align-items: end;
+      justify-content: center;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      width: min(100%, 420px);
+      background: #2a1218;
+      border: 1px solid var(--stroke);
+      border-radius: 22px 22px 16px 16px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      animation: rise 0.3s ease;
+    }
+    .modal h2 { font-size: 2rem; margin-bottom: 8px; color: var(--gold-bright); }
+    .modal p { color: var(--muted); margin-bottom: 12px; }
+    .error { color: #ffb3bf; font-weight: 700; min-height: 1.2em; margin: 6px 0; }
+
+    .share-box {
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(0,0,0,0.25);
+      border-radius: 12px;
+      word-break: break-all;
+      font-size: 0.78rem;
+      color: var(--cream-dim);
+      max-height: 90px;
+      overflow: auto;
+    }
+
+    /* Confetti bits */
+    .confetti-piece {
+      position: fixed;
+      z-index: 15;
+      width: 8px; height: 12px;
+      animation: confetti 1.8s ease-in forwards;
+      pointer-events: none;
+    }
+    @keyframes confetti {
+      0% { transform: translateY(0) rotate(0); opacity: 1; }
+      100% { transform: translateY(80vh) rotate(520deg); opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .wheel { transition: none !important; }
+      .flake { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="snow" aria-hidden="true"></div>
+  <div id="lights" aria-hidden="true"></div>
+  <div id="ornaments" aria-hidden="true"></div>
+
+  <div class="app">
+    <div class="topbar">
+      <div class="brand" id="top-brand">Kelly &amp; Joe</div>
+      <button type="button" class="icon-btn" id="sound-toggle" aria-pressed="false" aria-label="Jingle sound, off">
+        <span aria-hidden="true">🔕</span>
+      </button>
+    </div>
+
+    <!-- SPLASH -->
+    <section id="screen-splash" class="screen active" aria-label="Opening greeting">
+      <div class="splash-wreath">
+        <div>
+          <p class="merry">Merry<br>Christmas</p>
+          <p class="couple-line">Kelly &amp; Joe</p>
+        </div>
+      </div>
+      <p class="tagline">Seven secret wishes each. Two dream vacations, chosen by the wheel.</p>
+      <button type="button" class="btn" id="btn-lets-dream">Let's dream</button>
+    </section>
+
+    <!-- HUB -->
+    <section id="screen-hub" class="screen" aria-label="Wish lists">
+      <h1 class="hub-title">Our Christmas Wishes</h1>
+      <p class="hub-sub">Each of you writes 7 dream vacations. Lists stay wrapped until both are locked in.</p>
+      <div id="import-toast" hidden></div>
+      <div class="person-grid" id="person-grid"></div>
+      <div id="hub-action"></div>
+      <details class="help card" style="margin-top:16px">
+        <summary>Sharing on two phones</summary>
+        <p>You can take turns on one phone — everything is saved here. Or, after you lock in your 7 wishes, copy your <strong>sealed gift link</strong> and text it to the other person. When they open the link, your list is imported automatically but stays hidden until the big reveal. Then they lock in theirs and can send their gift link back to you.</p>
+        <p style="margin-top:8px">The link is encoded, so the destinations are not readable at a glance. You can also paste a gift code below.</p>
+        <label class="field" for="import-code">Paste a gift code or link</label>
+        <textarea id="import-code" placeholder="VW1.... or a gift link" autocomplete="off"></textarea>
+        <button type="button" class="btn btn-ghost btn-full" id="btn-import" style="margin-top:10px">Import sealed wishes</button>
+      </details>
+    </section>
+
+    <!-- ENTRY -->
+    <section id="screen-entry" class="screen" aria-label="Enter wishes">
+      <button type="button" class="back" id="btn-back-hub">← Back to our tree</button>
+      <h1 class="hub-title" id="entry-title">Kelly's wishes</h1>
+      <p class="progress" id="entry-progress">0 of 7 destinations</p>
+      <form id="entry-form"></form>
+      <div class="card" style="margin-top:8px">
+        <label class="field" for="entry-pin">Optional 4-digit PIN</label>
+        <p class="status" style="margin-top:0">Set a PIN if you might want to unwrap and edit your list before the draw. Without a PIN, your wishes stay sealed until we spin. On a shared phone, a PIN keeps them private.</p>
+        <div class="pin-row">
+          <input id="entry-pin" type="password" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" autocomplete="off" aria-describedby="pin-hint" placeholder="••••" />
+        </div>
+        <p id="pin-hint" class="sr-only">Four digits, optional</p>
+      </div>
+      <div class="entry-footer">
+        <button type="submit" form="entry-form" class="btn btn-full" id="btn-lock" disabled>Lock in my 7 wishes</button>
+        <p class="error" id="entry-error" role="alert"></p>
+      </div>
+    </section>
+
+    <!-- DRAW -->
+    <section id="screen-draw" class="screen" aria-label="Vacation wheel">
+      <h1 class="hub-title">The Vacation Wheel</h1>
+      <p class="hub-sub" id="draw-status">Two adventures will be chosen from your 14 secret wishes.</p>
+      <div class="wheel-stage" id="wheel-stage">
+        <div class="wheel-pointer" aria-hidden="true"></div>
+        <div class="wheel" id="wheel" aria-hidden="true"></div>
+        <div class="wheel-center" aria-hidden="true"></div>
+      </div>
+      <div class="winners" id="winners" aria-live="polite"></div>
+      <div class="btn-row" id="draw-actions"></div>
+    </section>
+
+    <!-- REVEAL ALL -->
+    <section id="screen-all" class="screen" aria-label="All fourteen wishes">
+      <button type="button" class="back" id="btn-back-draw">← Back to the winners</button>
+      <h1 class="hub-title">All 14 wishes</h1>
+      <p class="hub-sub">Every dream you both tucked under the tree.</p>
+      <div id="all-lists"></div>
+      <div class="btn-row">
+        <button type="button" class="btn btn-danger" id="btn-reset-all">Start over</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal">
+      <h2 id="modal-title"></h2>
+      <div id="modal-body"></div>
+      <p class="error" id="modal-error" role="alert"></p>
+      <div class="btn-row" id="modal-actions"></div>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    const PEOPLE = {
+      kelly: { id: "kelly", name: "Kelly", color: "#c41e3a" },
+      joe: { id: "joe", name: "Joe", color: "#14633a" }
+    };
+    const NEED = 7;
+    const PICK = 2;
+    const STORAGE = "kj-vacation-wheel-v1";
+    const ORDER = ["kelly", "joe"];
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const $ = (id) => document.getElementById(id);
+
+    function emptyPerson() {
+      return {
+        vacations: Array.from({ length: NEED }, () => ({ dest: "", note: "" })),
+        locked: false,
+        pin: null
+      };
+    }
+    function defaultState() {
+      return {
+        seenSplash: false,
+        sound: false,
+        people: { kelly: emptyPerson(), joe: emptyPerson() },
+        draw: { done: false, winners: [] }
+      };
+    }
+
+    let state = load();
+    let editing = null;
+    let audioCtx = null;
+    let jingleTimer = null;
+    let wheelRotation = 0;
+
+    function load() {
+      try {
+        const raw = localStorage.getItem(STORAGE);
+        if (!raw) return defaultState();
+        const parsed = JSON.parse(raw);
+        const s = defaultState();
+        s.seenSplash = !!parsed.seenSplash;
+        s.sound = !!parsed.sound;
+        ORDER.forEach((id) => {
+          const src = (parsed.people && parsed.people[id]) || {};
+          s.people[id].locked = !!src.locked;
+          s.people[id].pin = typeof src.pin === "string" && /^\d{4}$/.test(src.pin) ? src.pin : null;
+          const vacs = Array.isArray(src.vacations) ? src.vacations : [];
+          s.people[id].vacations = Array.from({ length: NEED }, (_, i) => ({
+            dest: (vacs[i] && String(vacs[i].dest || "")).slice(0, 80),
+            note: (vacs[i] && String(vacs[i].note || "")).slice(0, 140)
+          }));
+        });
+        if (parsed.draw && parsed.draw.done && Array.isArray(parsed.draw.winners)) {
+          s.draw.done = true;
+          s.draw.winners = parsed.draw.winners.slice(0, 2).map((w) => ({
+            who: w.who === "joe" ? "joe" : "kelly",
+            index: Number(w.index) || 0,
+            dest: String(w.dest || ""),
+            note: String(w.note || "")
+          }));
+        }
+        return s;
+      } catch {
+        return defaultState();
+      }
+    }
+
+    function save() {
+      localStorage.setItem(STORAGE, JSON.stringify(state));
+    }
+
+    function filledCount(person) {
+      return state.people[person].vacations.filter((v) => v.dest.trim()).length;
+    }
+    function bothLocked() {
+      return state.people.kelly.locked && state.people.joe.locked;
+    }
+    function pool() {
+      const items = [];
+      ORDER.forEach((who) => {
+        state.people[who].vacations.forEach((v, index) => {
+          items.push({ who, index, dest: v.dest.trim(), note: (v.note || "").trim() });
+        });
+      });
+      return items;
+    }
+
+    /* ---------- visuals: snow, lights, ornaments ---------- */
+    function decorate() {
+      const snow = $("snow");
+      const glyphs = ["❄", "❅", "✦", "•"];
+      for (let i = 0; i < 42; i++) {
+        const el = document.createElement("span");
+        el.className = "flake";
+        el.textContent = glyphs[i % glyphs.length];
+        el.style.left = Math.random() * 100 + "vw";
+        el.style.fontSize = 8 + Math.random() * 16 + "px";
+        el.style.setProperty("--drift", (Math.random() * 80 - 40) + "px");
+        el.style.animationDuration = 8 + Math.random() * 14 + "s";
+        el.style.animationDelay = (-Math.random() * 16) + "s";
+        el.style.opacity = String(0.4 + Math.random() * 0.6);
+        snow.appendChild(el);
+      }
+
+      const lights = $("lights");
+      const cord = document.createElement("div");
+      cord.className = "light-cord";
+      lights.appendChild(cord);
+      const colors = ["#ff4d6d", "#ffe08a", "#3ddc84", "#ff8a5b", "#7ad7ff", "#ffd1dc"];
+      const count = 16;
+      for (let i = 0; i < count; i++) {
+        const b = document.createElement("span");
+        b.className = "bulb";
+        const c = colors[i % colors.length];
+        b.style.color = c;
+        b.style.background = c;
+        b.style.left = (3 + (i / (count - 1)) * 94) + "%";
+        b.style.top = (20 + Math.sin((i / (count - 1)) * Math.PI) * 16) + "px";
+        b.style.animationDelay = (i * 0.13) + "s";
+        lights.appendChild(b);
+      }
+
+      const orns = $("ornaments");
+      const palettes = ["#c41e3a", "#14633a", "#e8c872", "#8b1530", "#1d8a4c"];
+      [8, 22, 78, 92].forEach((left, i) => {
+        const h = document.createElement("div");
+        h.className = "hanging";
+        h.style.left = left + "vw";
+        h.style.animationDelay = (i * 0.6) + "s";
+        h.innerHTML = '<div class="string" style="height:' + (40 + i * 8) + 'px"></div><div class="bauble" style="background:' + palettes[i] + '"></div>';
+        orns.appendChild(h);
+      });
+    }
+
+    /* ---------- sound ---------- */
+    function ensureAudio() {
+      if (!audioCtx) {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return null;
+        audioCtx = new AC();
+      }
+      if (audioCtx.state === "suspended") audioCtx.resume();
+      return audioCtx;
+    }
+
+    function tone(freq, start, dur, type, gainVal) {
+      const ctx = audioCtx;
+      if (!ctx) return;
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.type = type || "triangle";
+      osc.frequency.value = freq;
+      g.gain.setValueAtTime(0.0001, start);
+      g.gain.exponentialRampToValueAtTime(gainVal || 0.06, start + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, start + dur);
+      osc.connect(g);
+      g.connect(ctx.destination);
+      osc.start(start);
+      osc.stop(start + dur + 0.02);
+    }
+
+    function playJingleOnce() {
+      const ctx = ensureAudio();
+      if (!ctx) return;
+      const t = ctx.currentTime + 0.02;
+      // Short festive phrase (approx. opening of a carol), very soft
+      const seq = [
+        [392, 0, 0.28], [523.25, 0.28, 0.28], [523.25, 0.56, 0.18],
+        [587.33, 0.74, 0.18], [523.25, 0.92, 0.18], [493.88, 1.10, 0.18],
+        [440, 1.28, 0.42], [440, 1.78, 0.22],
+        [587.33, 2.10, 0.28], [659.25, 2.38, 0.28], [659.25, 2.66, 0.18],
+        [698.46, 2.84, 0.18], [659.25, 3.02, 0.18], [587.33, 3.20, 0.18],
+        [523.25, 3.42, 0.55]
+      ];
+      seq.forEach(([f, s, d]) => tone(f, t + s, d, "triangle", 0.05));
+      tone(784, t + 3.9, 0.35, "sine", 0.03);
+    }
+
+    function setSound(on) {
+      state.sound = !!on;
+      save();
+      const btn = $("sound-toggle");
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+      btn.setAttribute("aria-label", on ? "Jingle sound, on" : "Jingle sound, off");
+      btn.querySelector("span").textContent = on ? "🔔" : "🔕";
+      if (jingleTimer) { clearInterval(jingleTimer); jingleTimer = null; }
+      if (on) {
+        playJingleOnce();
+        jingleTimer = setInterval(playJingleOnce, 9000);
+      }
+    }
+
+    /* ---------- encoding / share ---------- */
+    function bytesToB64url(str) {
+      const b64 = btoa(unescape(encodeURIComponent(str)));
+      return b64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+    }
+    function b64urlToStr(b64) {
+      const pad = b64.length % 4 === 0 ? "" : "=".repeat(4 - (b64.length % 4));
+      const raw = (b64 + pad).replace(/-/g, "+").replace(/_/g, "/");
+      return decodeURIComponent(escape(atob(raw)));
+    }
+    function encodeGift(personId) {
+      const p = state.people[personId];
+      if (!p.locked) return null;
+      const payload = {
+        v: 1,
+        from: personId,
+        vacations: p.vacations.map((v) => ({ dest: v.dest, note: v.note || "" }))
+      };
+      return "VW1." + bytesToB64url(JSON.stringify(payload));
+    }
+    function giftLink(code) {
+      return location.href.split("#")[0].split("?")[0] + "#gift=" + code;
+    }
+    function parseGift(raw) {
+      if (!raw) return null;
+      let text = String(raw).trim();
+      const hashIdx = text.indexOf("#gift=");
+      if (hashIdx >= 0) text = text.slice(hashIdx + 6);
+      const q = text.indexOf("VW1.");
+      if (q >= 0) text = text.slice(q);
+      text = text.replace(/[\s]/g, "");
+      if (!text.startsWith("VW1.")) return null;
+      try {
+        const json = JSON.parse(b64urlToStr(text.slice(4)));
+        if (!json || (json.from !== "kelly" && json.from !== "joe")) return null;
+        if (!Array.isArray(json.vacations) || json.vacations.length !== NEED) return null;
+        const vacations = json.vacations.map((v) => ({
+          dest: String((v && v.dest) || "").trim().slice(0, 80),
+          note: String((v && v.note) || "").trim().slice(0, 140)
+        }));
+        if (vacations.some((v) => !v.dest)) return null;
+        return { from: json.from, vacations };
+      } catch {
+        return null;
+      }
+    }
+    function importGift(parsed, announce) {
+      if (!parsed) return { ok: false, message: "That gift code could not be read." };
+      const already = state.people[parsed.from].locked;
+      state.people[parsed.from].vacations = parsed.vacations;
+      state.people[parsed.from].locked = true;
+      // Do not import someone else's PIN
+      if (state.draw.done) {
+        state.draw = { done: false, winners: [] };
+      }
+      save();
+      const name = PEOPLE[parsed.from].name;
+      const msg = already
+        ? name + "'s sealed wishes were updated and stay wrapped until the draw."
+        : name + "'s 7 wishes are tucked under the tree — still wrapped until you both lock in.";
+      if (announce) showToast(msg);
+      return { ok: true, message: msg };
+    }
+
+    function showToast(msg) {
+      const el = $("import-toast");
+      if (!el) return;
+      el.hidden = false;
+      el.className = "notice toast-in";
+      el.setAttribute("role", "status");
+      el.textContent = msg;
+    }
+
+    function consumeHash() {
+      const hash = location.hash || "";
+      if (!hash.includes("gift=")) return;
+      const parsed = parseGift(hash);
+      if (parsed) {
+        state.seenSplash = true;
+        importGift(parsed, true);
+      }
+      try { history.replaceState(null, "", location.href.split("#")[0]); } catch (e) {}
+    }
+
+    /* ---------- screens ---------- */
+    function showScreen(id) {
+      document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
+      $(id).classList.add("active");
+      $(id).focus && $(id).setAttribute("tabindex", "-1");
+      window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+    }
+
+    function render() {
+      $("sound-toggle").setAttribute("aria-pressed", state.sound ? "true" : "false");
+      $("sound-toggle").setAttribute("aria-label", state.sound ? "Jingle sound, on" : "Jingle sound, off");
+      $("sound-toggle").querySelector("span").textContent = state.sound ? "🔔" : "🔕";
+
+      if (!state.seenSplash) {
+        showScreen("screen-splash");
+        return;
+      }
+      if (state.draw.done) {
+        renderDraw(true);
+        return;
+      }
+      renderHub();
+    }
+
+    function renderHub() {
+      showScreen("screen-hub");
+      const grid = $("person-grid");
+      grid.innerHTML = "";
+      ORDER.forEach((id) => {
+        const p = state.people[id];
+        const n = filledCount(id);
+        const card = document.createElement("article");
+        card.className = "card person-card " + id;
+        card.innerHTML = "<h3>" + PEOPLE[id].name + "</h3>";
+        const status = document.createElement("p");
+        status.className = "status";
+        if (p.locked) {
+          status.textContent = "List sealed — hidden until the reveal.";
+          card.appendChild(status);
+          const box = document.createElement("div");
+          box.className = "gift-box";
+          box.setAttribute("aria-hidden", "true");
+          box.innerHTML = '<div class="gift-body"></div><div class="ribbon-h"></div><div class="ribbon-v"></div><div class="gift-lid"></div><div class="bow">🎀</div>';
+          card.appendChild(box);
+          const lab = document.createElement("p");
+          lab.className = "sealed-label";
+          lab.textContent = "7 wishes wrapped";
+          card.appendChild(lab);
+          const share = document.createElement("button");
+          share.type = "button";
+          share.className = "btn btn-full";
+          share.textContent = "Copy sealed gift link";
+          share.addEventListener("click", () => copyShare(id));
+          card.appendChild(share);
+          if (p.pin && !bothLocked()) {
+            const edit = document.createElement("button");
+            edit.type = "button";
+            edit.className = "btn btn-secondary btn-full";
+            edit.style.marginTop = "8px";
+            edit.textContent = "Unwrap to edit (PIN)";
+            edit.addEventListener("click", () => askPin(id));
+            card.appendChild(edit);
+          }
+        } else {
+          status.textContent = n === 0
+            ? "No wishes written yet."
+            : n + " of 7 destinations written (still private, not locked).";
+          card.appendChild(status);
+          const go = document.createElement("button");
+          go.type = "button";
+          go.className = "btn btn-full";
+          go.textContent = n === 0 ? "Write 7 wishes" : "Continue my list";
+          go.addEventListener("click", () => openEntry(id));
+          card.appendChild(go);
+        }
+        grid.appendChild(card);
+      });
+
+      const action = $("hub-action");
+      action.innerHTML = "";
+      if (bothLocked()) {
+        const wrap = document.createElement("div");
+        wrap.className = "ready-banner";
+        wrap.innerHTML = "<h2>Both gifts are under the tree</h2><p>Fourteen secret wishes are ready. Time to spin.</p>";
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "btn btn-full";
+        btn.id = "btn-open-draw";
+        btn.textContent = "Spin the vacation wheel";
+        btn.addEventListener("click", () => startDraw());
+        wrap.appendChild(btn);
+        action.appendChild(wrap);
+      } else {
+        const wait = document.createElement("p");
+        wait.className = "waiting";
+        const missing = ORDER.filter((id) => !state.people[id].locked).map((id) => PEOPLE[id].name);
+        wait.textContent = "The wheel unlocks when both of you have locked in 7 wishes. Still waiting on " + missing.join(" and ") + ".";
+        action.appendChild(wait);
+      }
+    }
+
+    function openEntry(id) {
+      if (state.people[id].locked) return;
+      editing = id;
+      $("entry-title").textContent = PEOPLE[id].name + "'s wishes";
+      $("entry-pin").value = state.people[id].pin || "";
+      $("entry-error").textContent = "";
+      buildEntryForm();
+      showScreen("screen-entry");
+      updateEntryProgress();
+    }
+
+    function buildEntryForm() {
+      const form = $("entry-form");
+      form.innerHTML = "";
+      state.people[editing].vacations.forEach((v, i) => {
+        const box = document.createElement("div");
+        box.className = "wish";
+        const num = i + 1;
+        box.innerHTML =
+          '<p class="wish-num">Wish ' + num + "</p>" +
+          '<label class="field" for="dest-' + i + '">Destination (required)</label>' +
+          '<input type="text" id="dest-' + i + '" name="dest-' + i + '" maxlength="80" required placeholder="e.g. Kyoto in cherry blossom season" value="" />' +
+          '<label class="field" for="note-' + i + '">Short note (optional)</label>' +
+          '<input type="text" id="note-' + i + '" name="note-' + i + '" maxlength="140" placeholder="A little why, or a must-do" value="" />';
+        form.appendChild(box);
+        form.querySelector("#dest-" + i).value = v.dest;
+        form.querySelector("#note-" + i).value = v.note;
+        form.querySelector("#dest-" + i).addEventListener("input", onEntryInput);
+        form.querySelector("#note-" + i).addEventListener("input", onEntryInput);
+      });
+    }
+
+    function onEntryInput() {
+      if (!editing) return;
+      for (let i = 0; i < NEED; i++) {
+        state.people[editing].vacations[i] = {
+          dest: $("dest-" + i).value,
+          note: $("note-" + i).value
+        };
+      }
+      save();
+      updateEntryProgress();
+    }
+
+    function updateEntryProgress() {
+      const n = filledCount(editing);
+      $("entry-progress").textContent = n + " of 7 destinations";
+      $("btn-lock").disabled = n !== NEED;
+    }
+
+    function lockCurrent(ev) {
+      ev.preventDefault();
+      $("entry-error").textContent = "";
+      onEntryInput();
+      if (filledCount(editing) !== NEED) {
+        $("entry-error").textContent = "Please add a destination for all 7 wishes.";
+        return;
+      }
+      const pin = $("entry-pin").value.trim();
+      if (pin && !/^\d{4}$/.test(pin)) {
+        $("entry-error").textContent = "PIN must be exactly 4 digits, or left blank.";
+        return;
+      }
+      state.people[editing].vacations = state.people[editing].vacations.map((v) => ({
+        dest: v.dest.trim(),
+        note: (v.note || "").trim()
+      }));
+      state.people[editing].locked = true;
+      state.people[editing].pin = pin || null;
+      save();
+      editing = null;
+      renderHub();
+      showToast("Wishes wrapped! Copy a sealed gift link if you are using two phones.");
+    }
+
+    function askPin(id) {
+      openModal({
+        title: "Unwrap " + PEOPLE[id].name + "'s wishes",
+        body: '<p>Enter the 4-digit PIN to edit this list. The other person should not look.</p>' +
+              '<label class="field" for="pin-input">PIN</label>' +
+              '<input id="pin-input" type="password" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="••••" />',
+        actions: [
+          { label: "Cancel", className: "btn btn-ghost", onClick: closeModal },
+          { label: "Unwrap", className: "btn", onClick: () => {
+              const val = $("pin-input").value.trim();
+              if (val !== state.people[id].pin) {
+                $("modal-error").textContent = "That PIN does not match.";
+                return;
+              }
+              state.people[id].locked = false;
+              save();
+              closeModal();
+              openEntry(id);
+            } }
+        ]
+      });
+      setTimeout(() => $("pin-input") && $("pin-input").focus(), 50);
+    }
+
+    async function copyShare(id) {
+      const code = encodeGift(id);
+      const link = giftLink(code);
+      let copied = false;
+      try {
+        await navigator.clipboard.writeText(link);
+        copied = true;
+      } catch {}
+      openModal({
+        title: "Sealed gift for " + PEOPLE[id].name,
+        body: "<p>" + (copied ? "The gift link is on your clipboard. " : "") +
+              "Text this link to the other person. When they open it, the list imports automatically and stays hidden until the draw.</p>" +
+              '<p class="share-box" id="share-text"></p>' +
+              "<p>Gift code (if you would rather paste it):</p>" +
+              '<p class="share-box" id="share-code"></p>',
+        actions: [
+          { label: "Copy link again", className: "btn", onClick: async () => {
+              try { await navigator.clipboard.writeText(link); $("modal-error").textContent = "Copied."; }
+              catch { $("modal-error").textContent = "Copy failed — select the link above."; }
+            } },
+          { label: "Done", className: "btn btn-ghost", onClick: closeModal }
+        ]
+      });
+      $("share-text").textContent = link;
+      $("share-code").textContent = code;
+    }
+
+    /* ---------- draw ---------- */
+    function shuffle(arr) {
+      const a = arr.slice();
+      const buf = new Uint32Array(a.length);
+      (window.crypto || window.msCrypto).getRandomValues(buf);
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = buf[i] % (i + 1);
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function pickTwo() {
+      return shuffle(pool()).slice(0, PICK);
+    }
+
+    function buildWheel(items) {
+      const wheel = $("wheel");
+      const n = items.length;
+      const step = 360 / n;
+      const stops = items.map((it, i) => {
+        const color = i % 2 === 0 ? (it.who === "kelly" ? "#9b1b30" : "#14633a") : (it.who === "kelly" ? "#c41e3a" : "#1d8a4c");
+        return color + " " + (i * step) + "deg " + ((i + 1) * step) + "deg";
+      }).join(", ");
+      wheel.style.background = "conic-gradient(from 0deg, " + stops + ")";
+      wheel.innerHTML = "";
+      items.forEach((it, i) => {
+        const lab = document.createElement("span");
+        lab.className = "slice-label";
+        lab.textContent = "✦";
+        const mid = -90 + (i + 0.5) * step;
+        lab.style.transform = "rotate(" + mid + "deg)";
+        wheel.appendChild(lab);
+      });
+    }
+
+    function renderDraw(alreadyDone) {
+      showScreen("screen-draw");
+      $("winners").innerHTML = "";
+      $("draw-actions").innerHTML = "";
+      const items = pool();
+      buildWheel(items);
+      $("wheel").style.transition = "none";
+      $("wheel").style.transform = "rotate(" + wheelRotation + "deg)";
+
+      if (alreadyDone && state.draw.winners.length) {
+        $("draw-status").textContent = "Your two adventures are ready.";
+        state.draw.winners.forEach((w) => appendWinner(w));
+        showPostDrawActions();
+        return;
+      }
+      $("draw-status").textContent = "Two adventures will be chosen from your 14 secret wishes.";
+      const spin = document.createElement("button");
+      spin.type = "button";
+      spin.className = "btn btn-full";
+      spin.id = "btn-spin";
+      spin.textContent = "Spin for our two trips";
+      spin.addEventListener("click", runSpin);
+      $("draw-actions").appendChild(spin);
+    }
+
+    function startDraw() {
+      if (!bothLocked()) return;
+      renderDraw(false);
+    }
+
+    function sleep(ms) { return new Promise((r) => setTimeout(r, reduced ? 0 : ms)); }
+
+    function spinToIndex(items, index) {
+      const n = items.length;
+      const step = 360 / n;
+      // conic starts at -90deg (top). Center of slice i is at (i+0.5)*step from that origin.
+      // Pointer is at top. We rotate the wheel clockwise (positive CSS) so the target center reaches the top.
+      const target = (index + 0.5) * step;
+      const extra = 360 * (reduced ? 0 : 5 + Math.floor(Math.random() * 3));
+      // Current visual angle modulo
+      const currentMod = ((wheelRotation % 360) + 360) % 360;
+      const desiredMod = (360 - target) % 360;
+      let delta = (desiredMod - currentMod + 360) % 360;
+      wheelRotation = wheelRotation + extra + delta;
+      const wheel = $("wheel");
+      wheel.style.transition = reduced ? "none" : "transform 4.2s cubic-bezier(0.12, 0.72, 0.08, 1)";
+      void wheel.offsetWidth;
+      wheel.style.transform = "rotate(" + wheelRotation + "deg)";
+      return reduced ? 0 : 4300;
+    }
+
+    async function runSpin() {
+      if (!bothLocked()) return;
+      const btn = $("btn-spin");
+      if (btn) btn.disabled = true;
+      const items = pool();
+      const winners = pickTwo();
+      // Map winners to their pool index
+      const indexes = winners.map((w) => items.findIndex((it) => it.who === w.who && it.index === w.index));
+      $("winners").innerHTML = "";
+      $("draw-status").textContent = "The wheel is choosing the first adventure…";
+      if (state.sound) playJingleOnce();
+      let wait = spinToIndex(items, indexes[0]);
+      await sleep(wait);
+      appendWinner(winners[0]);
+      burstConfetti();
+      $("draw-status").textContent = "And the second…";
+      await sleep(reduced ? 0 : 700);
+      wait = spinToIndex(items, indexes[1]);
+      await sleep(wait);
+      appendWinner(winners[1]);
+      burstConfetti();
+      state.draw = { done: true, winners };
+      save();
+      $("draw-status").textContent = "Your two adventures are ready.";
+      showPostDrawActions();
+    }
+
+    function appendWinner(w) {
+      const card = document.createElement("article");
+      card.className = "winner-card";
+      card.innerHTML =
+        '<p class="who">From ' + PEOPLE[w.who].name + "'s list</p>" +
+        "<h3>" + escapeHtml(w.dest) + "</h3>" +
+        (w.note ? "<p>" + escapeHtml(w.note) + "</p>" : "");
+      $("winners").appendChild(card);
+    }
+
+    function showPostDrawActions() {
+      const row = $("draw-actions");
+      row.innerHTML = "";
+      const reveal = document.createElement("button");
+      reveal.type = "button";
+      reveal.className = "btn btn-full";
+      reveal.id = "btn-reveal-all";
+      reveal.textContent = "Reveal all 14";
+      reveal.addEventListener("click", renderAll);
+      const reset = document.createElement("button");
+      reset.type = "button";
+      reset.className = "btn btn-danger btn-full";
+      reset.id = "btn-start-over";
+      reset.textContent = "Start over";
+      reset.addEventListener("click", confirmReset);
+      row.appendChild(reveal);
+      row.appendChild(reset);
+    }
+
+    function renderAll() {
+      showScreen("screen-all");
+      const root = $("all-lists");
+      root.innerHTML = "";
+      const wonKey = new Set(state.draw.winners.map((w) => w.who + ":" + w.index));
+      ORDER.forEach((id) => {
+        const h = document.createElement("h2");
+        h.style.cssText = "margin:16px 0 8px;font-size:2rem;color:var(--gold-bright)";
+        h.textContent = PEOPLE[id].name;
+        root.appendChild(h);
+        const list = document.createElement("div");
+        list.className = "all-list";
+        state.people[id].vacations.forEach((v, index) => {
+          const item = document.createElement("article");
+          const won = wonKey.has(id + ":" + index);
+          item.className = "all-item" + (won ? " won" : "");
+          item.innerHTML =
+            '<p class="who">Wish ' + (index + 1) + (won ? '<span class="badge">Chosen</span>' : "") + "</p>" +
+            "<p><strong>" + escapeHtml(v.dest) + "</strong></p>" +
+            (v.note ? "<p>" + escapeHtml(v.note) + "</p>" : "");
+          list.appendChild(item);
+        });
+        root.appendChild(list);
+      });
+    }
+
+    function confirmReset() {
+      openModal({
+        title: "Start over?",
+        body: "<p>This clears both wish lists, the draw, and any gift codes saved on this phone. This cannot be undone.</p>",
+        actions: [
+          { label: "Keep our wishes", className: "btn btn-ghost", onClick: closeModal },
+          { label: "Yes, start over", className: "btn btn-danger", onClick: () => {
+              const sound = state.sound;
+              state = defaultState();
+              state.sound = sound;
+              save();
+              closeModal();
+              showScreen("screen-splash");
+            } }
+        ]
+      });
+    }
+
+    function burstConfetti() {
+      if (reduced) return;
+      const colors = ["#c41e3a", "#14633a", "#e8c872", "#ffe9a0", "#fff6e8", "#1d8a4c"];
+      for (let i = 0; i < 28; i++) {
+        const p = document.createElement("i");
+        p.className = "confetti-piece";
+        p.style.left = (20 + Math.random() * 60) + "vw";
+        p.style.top = "20vh";
+        p.style.background = colors[i % colors.length];
+        p.style.animationDelay = (Math.random() * 0.25) + "s";
+        p.style.transform = "rotate(" + (Math.random() * 180) + "deg)";
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 2000);
+      }
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[c]));
+    }
+
+    /* ---------- modal ---------- */
+    let lastFocus = null;
+    function openModal({ title, body, actions }) {
+      lastFocus = document.activeElement;
+      $("modal-title").textContent = title;
+      $("modal-body").innerHTML = body;
+      $("modal-error").textContent = "";
+      const row = $("modal-actions");
+      row.innerHTML = "";
+      actions.forEach((a) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = a.className;
+        b.textContent = a.label;
+        b.addEventListener("click", a.onClick);
+        row.appendChild(b);
+      });
+      $("modal").classList.add("open");
+    }
+    function closeModal() {
+      $("modal").classList.remove("open");
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    /* ---------- events ---------- */
+    $("btn-lets-dream").addEventListener("click", () => {
+      state.seenSplash = true;
+      save();
+      renderHub();
+    });
+    $("btn-back-hub").addEventListener("click", () => {
+      onEntryInput();
+      editing = null;
+      renderHub();
+    });
+    $("entry-form").addEventListener("submit", lockCurrent);
+    $("btn-back-draw").addEventListener("click", () => renderDraw(true));
+    $("btn-reset-all").addEventListener("click", confirmReset);
+    $("sound-toggle").addEventListener("click", () => setSound(!state.sound));
+    $("btn-import").addEventListener("click", () => {
+      const parsed = parseGift($("import-code").value);
+      const result = importGift(parsed, true);
+      if (!result.ok) {
+        showToast(result.message);
+        $("import-toast").style.background = "rgba(196,30,58,0.28)";
+      } else {
+        $("import-code").value = "";
+        renderHub();
+      }
+    });
+    $("modal").addEventListener("click", (e) => { if (e.target.id === "modal") closeModal(); });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && $("modal").classList.contains("open")) closeModal();
+    });
+
+    decorate();
+    consumeHash();
+    render();
+  })();
+  </script>
+</body>
+</html>
